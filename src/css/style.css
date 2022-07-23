@@ -1,0 +1,536 @@
+/*! system-font.css v2.0.2 | CC0-1.0 License | github.com/jonathantneal/system-font-css */
+
+@font-face {
+  font-family: system-ui;
+  font-style: normal;
+  font-weight: 300;
+  src: local(".SFNS-Light"), local(".SFNSText-Light"),
+    local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"),
+    local("Segoe UI Light"), local("Ubuntu Light"), local("Roboto-Light"),
+    local("DroidSans"), local("Tahoma");
+}
+
+@font-face {
+  font-family: system-ui;
+  font-style: italic;
+  font-weight: 300;
+  src: local(".SFNS-LightItalic"), local(".SFNSText-LightItalic"),
+    local(".HelveticaNeueDeskInterface-Italic"), local(".LucidaGrandeUI"),
+    local("Segoe UI Light Italic"), local("Ubuntu Light Italic"),
+    local("Roboto-LightItalic"), local("DroidSans"), local("Tahoma");
+}
+
+@font-face {
+  font-family: system-ui;
+  font-style: normal;
+  font-weight: 400;
+  src: local(".SFNS-Regular"), local(".SFNSText-Regular"),
+    local(".HelveticaNeueDeskInterface-Regular"), local(".LucidaGrandeUI"),
+    local("Segoe UI"), local("Ubuntu"), local("Roboto-Regular"),
+    local("DroidSans"), local("Tahoma");
+}
+
+@font-face {
+  font-family: system-ui;
+  font-style: italic;
+  font-weight: 400;
+  src: local(".SFNS-Italic"), local(".SFNSText-Italic"),
+    local(".HelveticaNeueDeskInterface-Italic"), local(".LucidaGrandeUI"),
+    local("Segoe UI Italic"), local("Ubuntu Italic"), local("Roboto-Italic"),
+    local("DroidSans"), local("Tahoma");
+}
+
+@font-face {
+  font-family: system-ui;
+  font-style: normal;
+  font-weight: 500;
+  src: local(".SFNS-Medium"), local(".SFNSText-Medium"),
+    local(".HelveticaNeueDeskInterface-MediumP4"), local(".LucidaGrandeUI"),
+    local("Segoe UI Semibold"), local("Ubuntu Medium"), local("Roboto-Medium"),
+    local("DroidSans-Bold"), local("Tahoma Bold");
+}
+
+@font-face {
+  font-family: system-ui;
+  font-style: italic;
+  font-weight: 500;
+  src: local(".SFNS-MediumItalic"), local(".SFNSText-MediumItalic"),
+    local(".HelveticaNeueDeskInterface-MediumItalicP4"),
+    local(".LucidaGrandeUI"), local("Segoe UI Semibold Italic"),
+    local("Ubuntu Medium Italic"), local("Roboto-MediumItalic"),
+    local("DroidSans-Bold"), local("Tahoma Bold");
+}
+
+@font-face {
+  font-family: system-ui;
+  font-style: normal;
+  font-weight: 700;
+  src: local(".SFNS-Bold"), local(".SFNSText-Bold"),
+    local(".HelveticaNeueDeskInterface-Bold"), local(".LucidaGrandeUI"),
+    local("Segoe UI Bold"), local("Ubuntu Bold"), local("Roboto-Bold"),
+    local("DroidSans-Bold"), local("Tahoma Bold");
+}
+
+@font-face {
+  font-family: system-ui;
+  font-style: italic;
+  font-weight: 700;
+  src: local(".SFNS-BoldItalic"), local(".SFNSText-BoldItalic"),
+    local(".HelveticaNeueDeskInterface-BoldItalic"), local(".LucidaGrandeUI"),
+    local("Segoe UI Bold Italic"), local("Ubuntu Bold Italic"),
+    local("Roboto-BoldItalic"), local("DroidSans-Bold"), local("Tahoma Bold");
+}
+
+:root {
+  font-family: system-ui;
+  /* (62.5/100) * 16px = 10px */
+  font-size: 62.5%;
+  /* 14px */
+  --font-size-small: 1.4rem;
+  /* 16px */
+  --font-size-default: 1.6rem;
+  /* 24px */
+  --font-size-large: 2.4rem;
+}
+
+body {
+  font-size: var(--font-size-default);
+  min-height: 100vh;
+}
+
+.container {
+  padding: 1rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border-start-start-radius: 5px;
+  border-start-end-radius: 5px;
+  height: 20px;
+  background-color: #e37922;
+}
+
+.complete,
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0;
+  list-style: none;
+  padding: 0;
+}
+
+.menu-icon {
+  transition: ease 0.5s;
+}
+
+.menu-icon:hover {
+  transform: rotate(180deg);
+}
+
+.todo {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  min-height: calc(100vh - 50px - 2rem);
+  align-content: start;
+  transition: ease 0.2s;
+}
+
+.nav {
+  display: grid;
+  gap: 1rem;
+  background-color: #e0e1df;
+  padding: 1rem;
+  padding-inline-end: 0.5rem;
+  min-height: calc(100vh - 50px - 4rem);
+  align-content: start;
+  transition: ease 0.5s;
+  width: 280px;
+}
+
+.hide-nav {
+  overflow: hidden;
+  opacity: 0;
+  padding: 0;
+  width: 0;
+}
+
+.add-one,
+.drop-down {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.add-arrow {
+  transition: ease 0.5s;
+}
+
+.add-one:hover > .add-arrow {
+  transform: rotate(90deg);
+}
+
+.add-one:hover {
+  color: #e37922;
+}
+
+.drop-down {
+  font-weight: bold;
+}
+
+.drop-arrow {
+  transition: transform ease 0.5s;
+}
+
+.drop-down:hover {
+  color: #e37922;
+}
+
+.arrow-down {
+  transform: rotate(-90deg);
+}
+
+.my-project {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: height ease 0.5s, visibility ease 0.3s;
+  height: 30px;
+}
+
+.hide-projects {
+  height: 0px;
+  visibility: hidden;
+}
+
+.delete-one {
+  visibility: hidden;
+  transition: ease 0.5s;
+}
+
+.delete-one, .pen-one{
+  cursor: pointer;
+}
+
+.my-project:hover .delete-one {
+  visibility: visible;
+  color: red;
+  transform: rotate(90deg);
+}
+
+.my-project:hover .pen-one {
+  visibility: visible;
+  color: #e37922;
+  transform: translateX(5px);
+}
+
+.my-project:hover .nameproj {
+  text-decoration: underline 1px solid;
+}
+
+.mod-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #00000080;
+  visibility: hidden;
+  transform: scale(0);
+}
+
+.mod-bg:hover {
+  transition: ease 0.4s;
+}
+
+.modal-proj,
+.modal-task,
+.modal-delete,
+.modal-summary {
+  border-radius: 5px;
+  padding: 1rem;
+  background-color: #e37922;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  visibility: hidden;
+}
+
+.mod-show,
+.mod-scale {
+  visibility: visible;
+}
+
+.mod-scale {
+  transform: scale(1);
+  transition: ease 0.4s;
+}
+
+.proj-form,
+.modal-delete,
+.modal-summary,
+.task-form {
+  display: grid;
+  gap: 1rem;
+  text-align: center;
+}
+
+.proj-name {
+  padding-block-end: 1rem;
+  border-block-end: 1px solid;
+}
+
+.name-input {
+  border-radius: 5px;
+  border: none;
+}
+
+.task-label,
+.notes {
+  padding-block-end: 1rem;
+  border-block-end: 1px solid;
+}
+
+.task-input,
+#notes {
+  border-radius: 5px;
+  border: none;
+}
+
+.field {
+  border: 1px solid;
+  margin: 0;
+  padding: 0;
+  accent-color: #e37922;
+}
+
+.legend {
+  padding: 0 1rem 1rem;
+}
+
+.divrad {
+  padding-block-end: 1rem;
+  width: 45%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.red-rad:checked ~ label,
+.yel-rad:checked ~ label,
+.gr-rad:checked ~ label {
+  padding-bottom: 0.3rem;
+}
+
+.red-rad {
+  accent-color: red;
+}
+
+.red-rad:checked ~ label {
+  border-bottom: 2px solid red;
+}
+
+.yel-rad {
+  accent-color: #979736;
+}
+
+.yel-rad:checked ~ label {
+  border-bottom: 2px solid yellow;
+}
+
+.gr-rad {
+  accent-color: green;
+}
+
+.gr-rad:checked ~ label {
+  border-bottom: 2px solid green;
+}
+
+.task-bt,
+.proj-bt,
+.del-bt {
+  border-radius: 5px;
+  padding: 0.5rem;
+  border: none;
+}
+
+.task-bt:hover,
+.proj-bt:hover,
+.del-bt:hover {
+  background-color: #c5c5c5;
+}
+
+.task-bt:active,
+.proj-bt:active,
+.del-bt:active {
+  box-shadow: inset 1px 2px 5px black;
+  transform: translateX(1px) translateY(1px);
+  background-color: #c5c5c5;
+}
+
+.add-bt {
+  background-color: lightgreen;
+}
+
+.add-bt:hover {
+  background-color: #46e246;
+}
+
+.red-bt {
+  background-color: #ff5b5b;
+}
+
+.red-bt:hover {
+  background-color: red;
+}
+
+.red-bt:active {
+  box-shadow: inset 1px 2px 5px black;
+  transform: translateX(1px) translateY(1px);
+  background-color: red;
+}
+
+.imp-cont,
+.status-cont,
+.time-cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.imp-under {
+  border-block-end: 1px solid red;
+}
+
+.larger {
+  font-size: 2rem;
+}
+
+.underline {
+  border-block-end: 1px solid;
+}
+
+.b-pad {
+  padding-block-end: 1rem;
+}
+.view {
+  padding: 1rem;
+  padding-inline-start: 0.5rem;
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.proj-title {
+  text-align: center;
+  padding-block-end: 1rem;
+  border-block-end: 1px solid;
+  margin: 0;
+}
+
+.add-two {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: fit-content;
+}
+
+.add-two:hover > .add-arrow {
+  transform: rotate(90deg);
+}
+
+.add-two:hover {
+  color: #e37922;
+}
+
+.my-task {
+  border-radius: 5px;
+  background-color: antiquewhite;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.check {
+  padding-inline-end: 1rem;
+  display: flex;
+  height: 100%;
+  border-inline-end: 2px solid #e37922;
+  align-items: center;
+}
+
+#task-status {
+  accent-color: green;
+}
+
+.flex-cont,
+.flex-cont-two,
+.notes-cont {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.notes-cont {
+  gap: 1rem;
+}
+
+.flex-cont-two {
+  align-items: flex-end;
+}
+
+.push-left {
+  margin-inline-start: auto;
+  display: flex;
+  gap: 1rem;
+}
+
+.delete-two,
+.pen-one,
+.pen-two {
+  visibility: hidden;
+  transition: ease 0.5s;
+}
+
+.my-task:hover .delete-two {
+  visibility: visible;
+  color: red;
+  transform: rotate(90deg);
+}
+
+.my-task:hover .pen-two {
+  visibility: visible;
+  color: #e37922;
+  transform: translateX(5px);
+}
+
+.plant {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 120px;
+  background-image: url("../img/plant.svg");
+}
+
+.help {
+  text-align: center;
+  font-style: italic;
+  color: #e37922;
+  font-size: 2rem;
+}

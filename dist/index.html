@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Todo List</title>
+<link rel="icon" href="images/favicon.svg"><script defer src="index.bundle.js"></script></head>
+
+<body>
+  <div class="mod-bg">
+    <div class="modal-proj">
+      <form class="proj-form" action="">
+        <h1 class="no-margin">New Project &#9997;</h1>
+        <div class="proj-name"><label for="project-name">Name your project</label></div>
+        <div><input type="text" class="name-input" id="project-name" name="project-name" /></div>
+        <div>
+          <button type="button" class="proj-bt can-bt">Cancel</button>
+          <button type="button" class="proj-bt add-bt">Add</button>
+        </div>
+      </form>
+    </div>
+    <div class="modal-task">
+      <form class="task-form" action="">
+        <h1 class="no-margin">New Task &#9997;</h1>
+        <div class="task-label"><label for="task-name">Task name</label></div>
+        <div><input type="text" class="task-input" id="task-name" name="task-name" /></div>
+        <div class="task-label"><label for="task-descrip">Description</label></div>
+        <div><textarea name="task-descrip" id="task-descrip" cols="25" rows="7" class="task-input"></textarea>
+        </div>
+        <div class="task-label"><label for="task-date">Due date</label></div>
+        <div><input type="date" name="task-date" id="task-date" class="task-input" /></div>
+        <fieldset class="field">
+          <legend class="legend">Importance</legend>
+          <div class="divrad"><input type="radio" name="importance" id="high" class="red-rad"><svg
+              style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="red"
+                d="M6,3A1,1 0 0,1 7,4V4.88C8.06,4.44 9.5,4 11,4C14,4 14,6 16,6C19,6 20,4 20,4V12C20,12 19,14 16,14C13,14 13,12 11,12C8,12 7,14 7,14V21H5V4A1,1 0 0,1 6,3Z" />
+            </svg><label for="high">High</label></div>
+          <div class="divrad"><input type="radio" name="importance" id="moderate" class="yel-rad"><svg
+              style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="yellow"
+                d="M6,3A1,1 0 0,1 7,4V4.88C8.06,4.44 9.5,4 11,4C14,4 14,6 16,6C19,6 20,4 20,4V12C20,12 19,14 16,14C13,14 13,12 11,12C8,12 7,14 7,14V21H5V4A1,1 0 0,1 6,3Z" />
+            </svg><label for="moderate">Moderate</label></div>
+          <div class="divrad"><input type="radio" name="importance" id="low" class="gr-rad"><svg
+              style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="green"
+                d="M6,3A1,1 0 0,1 7,4V4.88C8.06,4.44 9.5,4 11,4C14,4 14,6 16,6C19,6 20,4 20,4V12C20,12 19,14 16,14C13,14 13,12 11,12C8,12 7,14 7,14V21H5V4A1,1 0 0,1 6,3Z" />
+            </svg><label for="low"></spa>Low</label></div>
+        </fieldset>
+        <div>
+          <button type="button" class="task-bt">Cancel</button>
+          <button type="button" class="task-bt">Add</button>
+        </div>
+      </form>
+    </div>
+    <div class="modal-delete">
+      <h1 class="no-margin">Delete project &#10060;</h1>
+      <p class="no-margin">You're going to delete the "My Project" project. Are you sure?</p>
+      <div>
+        <button type="button" class="del-bt">Keep it</button>
+        <button type="button" class="del-bt red-bt">Delete</button>
+      </div>
+    </div>
+    <div class="modal-summary">
+      <h1 class="no-margin">Something to do</h1>
+      <p class="no-margin larger">I need to do something</p>
+      <p class="no-margin imp-cont">
+        <span class="imp-under">High Importance</span>
+        <svg
+              style="width:24px;height:24px" viewBox="0 0 24 24">
+              <path fill="red"
+                d="M6,3A1,1 0 0,1 7,4V4.88C8.06,4.44 9.5,4 11,4C14,4 14,6 16,6C19,6 20,4 20,4V12C20,12 19,14 16,14C13,14 13,12 11,12C8,12 7,14 7,14V21H5V4A1,1 0 0,1 6,3Z" />
+        </svg>
+      </p>
+      <p class="no-margin"><time datetime="2022-08-18" class="time-cont"><span class="underline">Due date:</span> 18/08/2022</time></p>
+      <p class="no-margin status-cont">
+        <span class="underline">Status: </span>completed
+        <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
+          <path fill="green"
+            d="M20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4C12.76,4 13.5,4.11 14.2,4.31L15.77,2.74C14.61,2.26 13.34,2 12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12M7.91,10.08L6.5,11.5L11,16L21,6L19.59,4.58L11,13.17L7.91,10.08Z" />
+        </svg>
+      </p>
+      <div class="notes-cont">
+        <label for="notes" class="notes">Notes</label>
+        <textarea name="notes" id="notes" cols="25" rows="7"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <header class="header">
+      <ul class="menu">
+        <li>
+          <svg style="width: 24px; height: 24px" viewBox="0 0 24 24" class="menu-icon">
+            <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+          </svg>
+        </li>
+      </ul>
+      <ul class="complete">
+        <li><span>10/20</span></li>
+        <li>
+          <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
+            <path fill="currentColor"
+              d="M20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4C12.76,4 13.5,4.11 14.2,4.31L15.77,2.74C14.61,2.26 13.34,2 12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12M7.91,10.08L6.5,11.5L11,16L21,6L19.59,4.58L11,13.17L7.91,10.08Z" />
+          </svg>
+        </li>
+      </ul>
+    </header>
+    <div class="todo">
+      <nav class="nav">
+        <div class="add-one">
+          <svg class="add-arrow" style="width: 24px; height: 24px" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M20 14H14V20H10V14H4V10H10V4H14V10H20V14Z" />
+          </svg>
+          <span>Add Project</span>
+        </div>
+        <div class="underline b-pad">
+          <div class="drop-down">
+            <svg class="drop-arrow" style="width: 24px; height: 24px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M7,10L12,15L17,10H7Z" />
+            </svg>
+            <span>Projects</span>
+          </div>
+        </div>
+        <div class="my-project">
+          <span class="nameproj">My Project</span>
+          <span class="push-left">
+            <svg style="width:24px;height:24px" viewBox="0 0 24 24" class="pen-one">
+              <path fill="currentColor"
+                d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+            </svg>
+            <svg style="width:24px;height:24px" viewBox="0 0 24 24" class="delete-one" onclick="parentElement.parentElement.remove()">
+              <path fill="currentColor"
+                d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+            </svg>
+          </span>
+        </div>
+      </nav>
+      <main class="view">
+        <h1 class="proj-title">
+          <span>My Project</span>
+          <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
+            <path fill="green"
+              d="M20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4C12.76,4 13.5,4.11 14.2,4.31L15.77,2.74C14.61,2.26 13.34,2 12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12M7.91,10.08L6.5,11.5L11,16L21,6L19.59,4.58L11,13.17L7.91,10.08Z" />
+          </svg>
+        </h1>
+        <div class="add-two">
+          <svg class="add-arrow" style="width: 24px; height: 24px" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M20 14H14V20H10V14H4V10H10V4H14V10H20V14Z" />
+          </svg>
+          <span>Add Task</span>
+        </div>
+        <div class="my-task">
+          <div class="check"><input type="checkbox" name="task-status" id="task-status"></div>
+          <div class="flex-cont">
+            <h2 class="no-margin">Something to do</h2>
+            <p class="no-margin">I need to do something</p>
+          </div>
+          <div class="flex-cont-two push-left">
+            <div><time datetime="2022-08-18">18/08/2022</time></div>
+            <div>
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24" class="pen-two">
+                <path fill="currentColor"
+                  d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+              </svg>
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24" class="delete-two">
+                <path fill="currentColor"
+                  d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+              </svg>
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="red"
+                  d="M6,3A1,1 0 0,1 7,4V4.88C8.06,4.44 9.5,4 11,4C14,4 14,6 16,6C19,6 20,4 20,4V12C20,12 19,14 16,14C13,14 13,12 11,12C8,12 7,14 7,14V21H5V4A1,1 0 0,1 6,3Z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="plant"></div>
+        <div class="help">
+          &#128212; Keep your tasks organized in projects
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
