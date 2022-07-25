@@ -17,16 +17,16 @@
         <div><input type="text" class="name-input" id="project-name" name="project-name" /></div>
         <div>
           <button type="button" class="proj-bt can-bt">Cancel</button>
-          <button type="button" class="proj-bt add-bt">Add</button>
+          <button type="button" class="proj-bt add-bt proj-add-bt">Add</button>
         </div>
       </form>
     </div>
     <div class="modal-task">
       <form class="task-form" action="">
         <h1 class="no-margin">New Task &#9997;</h1>
-        <div class="task-label"><label for="task-name">Task name</label></div>
+        <div class="task-label"><label for="task-name">Name your task</label></div>
         <div><input type="text" class="task-input" id="task-name" name="task-name" /></div>
-        <div class="task-label"><label for="task-descrip">Description</label></div>
+        <div class="task-label"><label for="task-descrip">Describe it</label></div>
         <div><textarea name="task-descrip" id="task-descrip" cols="25" rows="7" class="task-input"></textarea>
         </div>
         <div class="task-label"><label for="task-date">Due date</label></div>
@@ -50,12 +50,12 @@
             </svg><label for="low"></spa>Low</label></div>
         </fieldset>
         <div>
-          <button type="button" class="task-bt">Cancel</button>
-          <button type="button" class="task-bt">Add</button>
+          <button type="button" class="task-bt can-bt">Cancel</button>
+          <button type="button" class="task-bt add-bt task-add-bt">Add</button>
         </div>
       </form>
     </div>
-    <div class="modal-delete">
+    <div class="modal-del">
       <h1 class="no-margin">Delete project &#10060;</h1>
       <p class="no-margin">You're going to delete the "My Project" project. Are you sure?</p>
       <div>
@@ -130,7 +130,7 @@
               <path fill="currentColor"
                 d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
             </svg>
-            <svg style="width:24px;height:24px" viewBox="0 0 24 24" class="delete-one" onclick="parentElement.parentElement.remove()">
+            <svg style="width:24px;height:24px" viewBox="0 0 24 24" class="delete-one">
               <path fill="currentColor"
                 d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
             </svg>
