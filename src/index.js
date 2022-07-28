@@ -303,12 +303,24 @@ delButton.addEventListener("click", () => {
   }
 });
 
-//Default project
+//Default project and task
 
 window.addEventListener("load", () => {
-  //Create default project
+  //Create defaults project and task and select them
+
   createProject("My Project", myProject);
-  //Select it
+  createTodo(
+    "Project1",
+    "Something to do",
+    "I need to do something",
+    "2022-07-11",
+    "High",
+    myTask
+  );
+  myProject.click();
+  myTask.click();
+  totalTasks += 1;
+  progBar();
 });
 
 myProject.children[1].children[0].addEventListener("click", () => {
@@ -317,9 +329,21 @@ myProject.children[1].children[0].addEventListener("click", () => {
   projectAdder.click();
 });
 
+taskModif.addEventListener("click", () => {
+  //Display modify modal
+  modifierTwo = taskModif;
+  taskAdder.click();
+});
+
 myProject.children[1].children[1].addEventListener("click", () => {
   //Display delete modal
   deleter = myProject.children[1].children[1];
+  delMod();
+});
+
+taskDel.addEventListener("click", () => {
+  //Display delete modal
+  deleterTwo = taskDel;
   delMod();
 });
 
@@ -340,6 +364,27 @@ myProject.addEventListener("click", (e) => {
         );
       }
     }
+  }
+});
+
+myTask.addEventListener("click", (e) => {
+  //Click interaction
+  if (e.target == myTask || myTask.contains(e.target)) {
+    removeClickEffectTwo();
+    myTask.classList.add("clicked-task");
+  }
+});
+
+taskStatus.addEventListener("change", () => {
+  //Task status checkbox
+  if (taskStatus.checked) {
+    taskID(myTask).status = "Done";
+    completedTasks += 1;
+    progBar();
+  } else {
+    taskID(myTask).status = "Not done";
+    completedTasks -= 1;
+    progBar();
   }
 });
 
@@ -427,71 +472,7 @@ projAddButton.addEventListener("click", () => {
     }
   });
 
-  // myProject.addEventListener("click", (e) => {
-  //   //Click interaction
-  //   if (e.target == myProject || myProject.contains(e.target)) {
-  //     removeClickEffect();
-  //     myProject.classList.add("clicked-project");
-  //     taskContainer.classList.remove("hide-tasks")
-  //     bigTitle.innerHTML = `${
-  //       ProjectID(myProject).title
-  //     }<span class="secret-id">${ProjectID(myProject).DirId}</span>`;
-  //     plant.insertAdjacentElement("beforebegin", myTask);
-  //   }
-  // });
-
   newProject.click();
-});
-
-//Default task
-
-window.addEventListener("load", () => {
-  //Create default task
-  createTodo(
-    "Project1",
-    "Something to do",
-    "I need to do something",
-    "2022-07-11",
-    "High",
-    myTask
-  );
-  myProject.click();
-  myTask.click();
-  totalTasks += 1;
-  progBar();
-});
-
-taskModif.addEventListener("click", () => {
-  //Display modify modal
-  modifierTwo = taskModif;
-  taskAdder.click();
-});
-
-taskDel.addEventListener("click", () => {
-  //Display delete modal
-  deleterTwo = taskDel;
-  delMod();
-});
-
-myTask.addEventListener("click", (e) => {
-  //Click interaction
-  if (e.target == myTask || myTask.contains(e.target)) {
-    removeClickEffectTwo();
-    myTask.classList.add("clicked-task");
-  }
-});
-
-taskStatus.addEventListener("change", () => {
-  //Task status checkbox
-  if (taskStatus.checked) {
-    taskID(myTask).status = "Done";
-    completedTasks += 1;
-    progBar();
-  } else {
-    taskID(myTask).status = "Not done";
-    completedTasks -= 1;
-    progBar();
-  }
 });
 
 //Add tasks
@@ -570,7 +551,6 @@ taskAddButton.addEventListener("click", () => {
         "";
       modifierTwo.nextElementSibling.nextElementSibling.classList.add("remove");
     }
-
     return;
   }
 
@@ -677,15 +657,6 @@ taskAddButton.addEventListener("click", () => {
     }
   });
 
-  newTask.firstElementChild.firstElementChild.addEventListener("change", () => {
-    //Task status checkbox
-    if (newTask.firstElementChild.firstElementChild.checked) {
-      taskID(newTask).status = "Done";
-    } else {
-      taskID(newTask).status = "Not done";
-    }
-  });
-
   newTask.querySelector("#task-status").addEventListener("change", () => {
     //Task status checkbox
     if (newTask.querySelector("#task-status").checked) {
@@ -701,8 +672,6 @@ taskAddButton.addEventListener("click", () => {
 
   newTask.click();
 });
-
-//date module, storage
 
 //Debugging
 

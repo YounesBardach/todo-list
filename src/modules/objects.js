@@ -22,6 +22,7 @@ const createProject = (title, domRep) => {
 };
 
 //domrep (needed unique id) => project => dirid => project directory
+//Don't use dom as idetifier again (problem with portability e.g. localStorage)
 
 const ProjectID = (id) => {
   for (const property in projectDirectory) {
@@ -67,7 +68,8 @@ const createTodo = (
     importance,
     domRep
   );
-  projectDirectory[project][`Task${taskNumber}`].projId = projectDirectory[project].DirId;
+  projectDirectory[project][`Task${taskNumber}`].projId =
+    projectDirectory[project].DirId;
   projectDirectory[project][`Task${taskNumber}`].taskId = `Task${taskNumber}`;
 };
 
