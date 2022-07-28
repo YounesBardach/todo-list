@@ -1,6 +1,7 @@
 //Project creation
 
 let projectNumber = 0;
+let taskNumber = 0;
 
 class project {
   title;
@@ -20,6 +21,8 @@ const createProject = (title, domRep) => {
   projectDirectory[`Project${projectNumber}`].DirId = `Project${projectNumber}`;
 };
 
+//domrep (needed unique id) => project => dirid => project directory
+
 const ProjectID = (id) => {
   for (const property in projectDirectory) {
     if (projectDirectory[property].domRep == id) {
@@ -33,42 +36,61 @@ const ProjectID = (id) => {
 class todo {
   title;
   description;
-  deadline;
+  dueDate;
   importance;
-  notes;
-  status;
-  checkList;
-  constructor(
-    title,
-    description,
-    deadline,
-    importance,
-    notes,
-    status,
-    checkList
-  ) {
+  status = "Not done";
+  domRep;
+  projId;
+  taskId;
+  constructor(title, description, dueDate, importance, domRep) {
     this.title = title;
     this.description = description;
-    this.deadline = deadline;
+    this.dueDate = dueDate;
     this.importance = importance;
-    this.notes = notes;
-    this.status = status;
-    this.checkList = checkList;
+    this.domRep = domRep;
   }
 }
 
-let shopping = new todo(
-  "shopping",
-  "go shop",
-  "before noon",
-  "unimportant",
-  "don't forget change",
-  "not done",
-  "go, buy, return"
-);
-
-export {
-  projectDirectory,
-  createProject,
-  ProjectID,
+const createTodo = (
+  project,
+  title,
+  description,
+  dueDate,
+  importance,
+  domRep
+) => {
+  taskNumber++;
+  projectDirectory[project][`Task${taskNumber}`] = new todo(
+    title,
+    description,
+    dueDate,
+    importance,
+    domRep
+  );
+  projectDirectory[project][`Task${taskNumber}`].projId = projectDirectory[project].DirId;
+  projectDirectory[project][`Task${taskNumber}`].taskId = `Task${taskNumber}`;
 };
+
+// Template for nested for ins:
+
+// for (var hand in hands) {
+//   for (var card in hands[hand]) {
+//       for (var prop in hands[hand][card]) {
+//           console.log(hands[hand][card][prop]);
+//       }
+//   }
+// }
+
+const taskID = (id) => {
+  for (const property in projectDirectory) {
+    for (const subprop in projectDirectory[property]) {
+      if (projectDirectory[property][subprop].domRep == id) {
+        return projectDirectory[property][subprop];
+      }
+    }
+  }
+};
+
+//Export
+
+export { projectDirectory, createProject, ProjectID, createTodo, taskID };

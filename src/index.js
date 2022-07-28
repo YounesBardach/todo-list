@@ -1,13 +1,26 @@
-//Imports
+//Import
 
-// import shopping from "./modules/todo-maker";
 import "./css/normalize.css";
 import "./css/style.css";
-import { projectDirectory, createProject, ProjectID } from "./modules/objects";
+import {
+  projectDirectory,
+  createProject,
+  ProjectID,
+  createTodo,
+  taskID,
+} from "./modules/objects";
 
 //Menu
 
 const menu = document.querySelector(".menu");
+
+//Completion indicator
+
+const completion =
+  document.querySelector(".complete").firstElementChild.firstElementChild;
+const checkMark = document.querySelector(".complete").lastElementChild;
+let completedTasks = 0;
+let totalTasks = 0;
 
 //Navbar
 
@@ -37,20 +50,52 @@ const projectNameLabel = projectTitle.nextElementSibling.firstChild;
 const modalAddTask = document.querySelector(".modal-task");
 const taskAddButton = document.querySelector(".task-add-bt");
 const taskNameInput = document.querySelector("#task-name");
-const taskTitle =
-  taskNameInput.parentElement.previousElementSibling.previousElementSibling;
-const taskNameLabel = taskTitle.nextElementSibling.firstChild;
+const taskTitle = modalAddTask.firstElementChild.children[0];
+const taskNameLabel = modalAddTask.firstElementChild.children[1];
+const taskDescrib = document.querySelector("#task-descrip");
+const taskTime = document.querySelector("#task-date");
+const taskImp = document.querySelector(".field");
 
 //Delete modal
 
 const modalDelProject = document.querySelector(".modal-del");
 const delButton = document.querySelector(".red-bt");
 const delPara = delButton.parentElement.previousElementSibling;
+const delTitle = delPara.previousElementSibling;
 
 //Content
 
+const taskContainer = document.querySelector(".view");
 const bigTitle = document.querySelector(".proj-title");
 const taskAdder = document.querySelector(".add-two");
+const myTask = document.querySelector(".my-task");
+const taskStatus = document.querySelector("#task-status");
+const taskTitleTwo = myTask.children[1].firstElementChild;
+const taskDescribTwo = taskTitleTwo.nextElementSibling;
+const taskTimeTwo = myTask.children[2].firstElementChild;
+const taskModif = taskTimeTwo.nextElementSibling.firstElementChild;
+const taskDel = taskModif.nextElementSibling;
+const taskImpTwo = document.querySelector(".importance");
+const plant = document.querySelector(".plant");
+let modifierTwo;
+let deleterTwo;
+let tasker;
+
+//Show tasks completion progress
+
+const progBar = () => {
+  completion.innerHTML = `${completedTasks}/${totalTasks}`;
+  if (completedTasks == totalTasks && totalTasks != 0) {
+    checkMark.classList.remove("hide-prog");
+  } else {
+    checkMark.classList.add("hide-prog");
+  }
+  if (completedTasks == totalTasks && totalTasks == 0) {
+    completion.classList.add("hide-prog");
+  } else {
+    completion.classList.remove("hide-prog");
+  }
+};
 
 //Display delete modal
 
@@ -58,7 +103,13 @@ const delMod = () => {
   modalBackground.classList.add("mod-scale");
   modalDelProject.classList.add("mod-show");
   delButton.previousElementSibling.focus();
-  delPara.textContent = `You're going to delete the "${deleter.parentElement.previousElementSibling.textContent}" project. Are you sure?`;
+  if (deleter) {
+    delTitle.innerHTML = `Delete project &#10060;`;
+    delPara.textContent = `You're going to delete the "${deleter.parentElement.previousElementSibling.textContent}" project. Are you sure?`;
+  } else {
+    delTitle.innerHTML = `Delete task &#10060;`;
+    delPara.textContent = `You're going to delete the "${deleterTwo.parentElement.parentElement.previousElementSibling.children[0].textContent}" task. Are you sure?`;
+  }
 };
 
 //Remove click from projects
@@ -66,6 +117,18 @@ const delMod = () => {
 const removeClickEffect = () => {
   [...nav.children].forEach((child) =>
     child.classList.remove("clicked-project")
+  );
+  let content = [...taskContainer.children];
+  content = content.filter((div) => div.classList[0] == "my-task");
+  content.forEach((child) => child.remove());
+  taskContainer.classList.add("hide-tasks");
+};
+
+//Remove click from tasks
+
+const removeClickEffectTwo = () => {
+  [...taskContainer.children].forEach((child) =>
+    child.classList.remove("clicked-task")
   );
 };
 
@@ -78,6 +141,9 @@ const removeAll = () => {
   modalDelProject.classList.remove("mod-show");
   modifier = 0;
   deleter = 0;
+  modifierTwo = 0;
+  deleterTwo = 0;
+  tasker = 0;
 };
 
 //Menu hide
@@ -97,22 +163,20 @@ dropDown.addEventListener("click", () => {
 
 //Add Enter and Esc keys to modals
 
-modalBackground.addEventListener(
-  "keydown",
-  (e) => {
-    if (e.code == "Escape") {
-      modalBackground.click();
+modalBackground.addEventListener("keydown", (e) => {
+  if (e.code == "Escape") {
+    modalBackground.click();
+  }
+  if (e.code == "Enter") {
+    if (deleter || deleterTwo) {
+      delButton.previousElementSibling.click();
+    } else if (tasker) {
+      taskAddButton.click();
+    } else {
+      projAddButton.click();
     }
-    if (e.code == "Enter") {
-      if (deleter) {
-        delButton.previousElementSibling.click();
-      } else {
-        projAddButton.click();
-      }
-    }
-  },
-  true
-);
+  }
+});
 
 //Collapse and reset modals
 
@@ -150,62 +214,140 @@ projectAdder.addEventListener("click", () => {
 //Display task modal
 
 taskAdder.addEventListener("click", () => {
+  tasker = 1;
   modalBackground.classList.add("mod-scale");
   modalAddTask.classList.add("mod-show");
   taskNameInput.focus();
-  // if (modifier) {
-  //   projectNameInput.value =
-  //     modifier.parentElement.previousElementSibling.textContent;
-  //   projectTitle.textContent = projectNameInput.value;
-  //   ProjectNameLabel.textContent = "Rename your project";
-  //   addButtonOne.textContent = "Change";
-  // }
+  if (modifierTwo) {
+    taskNameInput.value =
+      modifierTwo.parentElement.parentElement.previousElementSibling.firstElementChild.textContent;
+    taskTitle.textContent = taskNameInput.value;
+    taskNameLabel.textContent = "Rename your task";
+    taskAddButton.textContent = "Change";
+    taskDescrib.value =
+      modifierTwo.parentElement.parentElement.previousElementSibling.children[1].textContent;
+    taskTime.value =
+      modifierTwo.parentElement.previousElementSibling.children[0].textContent;
+    let importance =
+      taskImpTwo.firstElementChild.firstElementChild.getAttributeNS(
+        null,
+        "fill"
+      );
+    switch (importance) {
+      case "red":
+        taskImp.children[1].firstElementChild.checked = true;
+        break;
+      case "yellow":
+        taskImp.children[2].firstElementChild.checked = true;
+        break;
+      case "green":
+        taskImp.children[3].firstElementChild.checked = true;
+        break;
+    }
+  } else {
+    taskNameInput.value = "";
+    taskTitle.innerHTML = `New Task &#9997;`;
+    taskNameLabel.textContent = "Name your task";
+    taskAddButton.textContent = "Add";
+    taskDescrib.value = "";
+    taskTime.value = "";
+    taskImp.children[1].firstElementChild.checked = false;
+    taskImp.children[2].firstElementChild.checked = false;
+    taskImp.children[3].firstElementChild.checked = false;
+  }
 });
 
-// Delete project
+// Delete project or task
 
 delButton.addEventListener("click", () => {
-  delete projectDirectory[ProjectID(deleter.parentElement.parentElement).DirId];
-  deleter.parentElement.parentElement.remove();
-  bigTitle.textContent = "";
-  removeClickEffect();
+  if (deleter) {
+    let tasksNumber = 0;
+    let doneTasksNumber = 0;
+    for (const property in ProjectID(deleter.parentElement.parentElement)) {
+      if (
+        ProjectID(deleter.parentElement.parentElement)[property].projId ==
+        ProjectID(deleter.parentElement.parentElement).DirId
+      ) {
+        tasksNumber++;
+        if (
+          ProjectID(deleter.parentElement.parentElement)[property].status ==
+          "Done"
+        ) {
+          doneTasksNumber++;
+        }
+      }
+    }
+    delete projectDirectory[
+      ProjectID(deleter.parentElement.parentElement).DirId
+    ];
+    totalTasks -= tasksNumber;
+    completedTasks -= doneTasksNumber;
+    progBar();
+    deleter.parentElement.parentElement.remove();
+    bigTitle.textContent = "";
+    removeClickEffect();
+  } else {
+    delete projectDirectory[
+      taskID(deleterTwo.parentElement.parentElement.parentElement).projId
+    ][taskID(deleterTwo.parentElement.parentElement.parentElement).taskId];
+    totalTasks -= 1;
+    if (
+      deleterTwo.parentElement.parentElement.parentElement.firstElementChild
+        .firstElementChild.checked
+    ) {
+      completedTasks -= 1;
+    }
+    progBar();
+    deleterTwo.parentElement.parentElement.parentElement.remove();
+    removeClickEffectTwo();
+  }
 });
 
 //Default project
 
 window.addEventListener("load", () => {
-  //Add
+  //Create default project
   createProject("My Project", myProject);
-});
-
-myProject.addEventListener("click", (e) => {
-  //Click interaction
-  if (e.target == myProject || e.target == myProject.firstElementChild) {
-    removeClickEffect();
-    myProject.classList.add("clicked-project");
-    bigTitle.textContent = ProjectID(myProject).title;
-  }
+  //Select it
 });
 
 myProject.children[1].children[0].addEventListener("click", () => {
-  //Modify
+  //Display modify modal
   modifier = myProject.children[1].children[0];
   projectAdder.click();
 });
 
 myProject.children[1].children[1].addEventListener("click", () => {
-  //Delete
   //Display delete modal
   deleter = myProject.children[1].children[1];
   delMod();
 });
 
-//Projects creation
+myProject.addEventListener("click", (e) => {
+  //Click interaction
+  if (e.target == myProject || myProject.contains(e.target)) {
+    removeClickEffect();
+    myProject.classList.add("clicked-project");
+    taskContainer.classList.remove("hide-tasks");
+    bigTitle.innerHTML = `${
+      ProjectID(myProject).title
+    }<span class="secret-id">${ProjectID(myProject).DirId}</span>`;
+    for (const property in ProjectID(myProject)) {
+      if (ProjectID(myProject)[property].projId == ProjectID(myProject).DirId) {
+        plant.insertAdjacentElement(
+          "beforebegin",
+          ProjectID(myProject)[property].domRep
+        );
+      }
+    }
+  }
+});
+
+// Add projects
 
 projAddButton.addEventListener("click", () => {
   projectNameInput.blur();
-
-  //Modify
+  //Modify logic
 
   if (modifier) {
     if (projectNameInput.value != "") {
@@ -224,17 +366,24 @@ projAddButton.addEventListener("click", () => {
     return;
   }
 
+  //Add new project with functionalities to dom
+
+  //Add
+
   let newProject = myProject.cloneNode(true);
   let newModifier = newProject.children[1].children[0];
   let newDeleter = newProject.children[1].children[1];
 
   nav.appendChild(newProject);
+
+  //Display modify modal
+
   newModifier.addEventListener("click", () => {
     modifier = newModifier;
     projectAdder.click();
   });
 
-  //Delete
+  //Display delete modal
 
   newDeleter.addEventListener("click", () => {
     //Display delete modal
@@ -242,7 +391,7 @@ projAddButton.addEventListener("click", () => {
     delMod();
   });
 
-  //Add
+  //Create corresponding project object and update dom
 
   if (projectNameInput.value == "") {
     createProject("Unnamed Project", nav.lastChild);
@@ -258,16 +407,303 @@ projAddButton.addEventListener("click", () => {
 
   newProject.addEventListener("click", (e) => {
     //Click interaction
-    if (e.target == newProject || e.target == newProject.firstElementChild) {
+    if (e.target == newProject || newProject.contains(e.target)) {
       removeClickEffect();
       newProject.classList.add("clicked-project");
-      bigTitle.textContent = ProjectID(newProject).title;
+      taskContainer.classList.remove("hide-tasks");
+      bigTitle.innerHTML = `${
+        ProjectID(newProject).title
+      }<span class="secret-id">${ProjectID(newProject).DirId}</span>`;
+      for (const property in ProjectID(newProject)) {
+        if (
+          ProjectID(newProject)[property].projId == ProjectID(newProject).DirId
+        ) {
+          plant.insertAdjacentElement(
+            "beforebegin",
+            ProjectID(newProject)[property].domRep
+          );
+        }
+      }
     }
   });
+
+  // myProject.addEventListener("click", (e) => {
+  //   //Click interaction
+  //   if (e.target == myProject || myProject.contains(e.target)) {
+  //     removeClickEffect();
+  //     myProject.classList.add("clicked-project");
+  //     taskContainer.classList.remove("hide-tasks")
+  //     bigTitle.innerHTML = `${
+  //       ProjectID(myProject).title
+  //     }<span class="secret-id">${ProjectID(myProject).DirId}</span>`;
+  //     plant.insertAdjacentElement("beforebegin", myTask);
+  //   }
+  // });
 
   newProject.click();
 });
 
-console.log(projectDirectory);
+//Default task
 
-export { myProject };
+window.addEventListener("load", () => {
+  //Create default task
+  createTodo(
+    "Project1",
+    "Something to do",
+    "I need to do something",
+    "2022-07-11",
+    "High",
+    myTask
+  );
+  myProject.click();
+  myTask.click();
+  totalTasks += 1;
+  progBar();
+});
+
+taskModif.addEventListener("click", () => {
+  //Display modify modal
+  modifierTwo = taskModif;
+  taskAdder.click();
+});
+
+taskDel.addEventListener("click", () => {
+  //Display delete modal
+  deleterTwo = taskDel;
+  delMod();
+});
+
+myTask.addEventListener("click", (e) => {
+  //Click interaction
+  if (e.target == myTask || myTask.contains(e.target)) {
+    removeClickEffectTwo();
+    myTask.classList.add("clicked-task");
+  }
+});
+
+taskStatus.addEventListener("change", () => {
+  //Task status checkbox
+  if (taskStatus.checked) {
+    taskID(myTask).status = "Done";
+    completedTasks += 1;
+    progBar();
+  } else {
+    taskID(myTask).status = "Not done";
+    completedTasks -= 1;
+    progBar();
+  }
+});
+
+//Add tasks
+
+taskAddButton.addEventListener("click", () => {
+  taskNameInput.blur();
+
+  // Modify logic
+
+  if (modifierTwo) {
+    if (taskNameInput.value != "") {
+      taskID(modifierTwo.parentElement.parentElement.parentElement).title =
+        taskNameInput.value;
+      modifierTwo.parentElement.parentElement.previousElementSibling.children[0].textContent =
+        taskNameInput.value;
+    } else {
+      taskID(modifierTwo.parentElement.parentElement.parentElement).title =
+        "Unnamed Task";
+      modifierTwo.parentElement.parentElement.previousElementSibling.children[0].textContent =
+        "Unnamed Task";
+    }
+
+    if (taskDescrib.value != "") {
+      taskID(
+        modifierTwo.parentElement.parentElement.parentElement
+      ).description = taskDescrib.value;
+      modifierTwo.parentElement.parentElement.previousElementSibling.children[1].textContent =
+        taskDescrib.value;
+    } else {
+      taskID(
+        modifierTwo.parentElement.parentElement.parentElement
+      ).description = "";
+      modifierTwo.parentElement.parentElement.previousElementSibling.children[1].textContent =
+        "";
+    }
+
+    if (taskTime.value != "") {
+      taskID(modifierTwo.parentElement.parentElement.parentElement).dueDate =
+        taskTime.value;
+      modifierTwo.parentElement.previousElementSibling.firstElementChild.textContent =
+        taskTime.value;
+    } else {
+      taskID(modifierTwo.parentElement.parentElement.parentElement).dueDate =
+        "";
+      modifierTwo.parentElement.previousElementSibling.firstElementChild.textContent =
+        "";
+    }
+
+    let importance =
+      modifierTwo.nextElementSibling.nextElementSibling.firstElementChild
+        .firstElementChild;
+
+    if (taskImp.children[1].firstElementChild.checked) {
+      taskID(modifierTwo.parentElement.parentElement.parentElement).importance =
+        "High";
+      modifierTwo.nextElementSibling.nextElementSibling.classList.remove(
+        "remove"
+      );
+      importance.setAttributeNS(null, "fill", "red");
+    } else if (taskImp.children[2].firstElementChild.checked) {
+      taskID(modifierTwo.parentElement.parentElement.parentElement).importance =
+        "Moderate";
+      modifierTwo.nextElementSibling.nextElementSibling.classList.remove(
+        "remove"
+      );
+      importance.setAttributeNS(null, "fill", "yellow");
+    } else if (taskImp.children[3].firstElementChild.checked) {
+      taskID(modifierTwo.parentElement.parentElement.parentElement).importance =
+        "Low";
+      modifierTwo.nextElementSibling.nextElementSibling.classList.remove(
+        "remove"
+      );
+      importance.setAttributeNS(null, "fill", "green");
+    } else {
+      taskID(modifierTwo.parentElement.parentElement.parentElement).importance =
+        "";
+      modifierTwo.nextElementSibling.nextElementSibling.classList.add("remove");
+    }
+
+    return;
+  }
+
+  //Add new task with functionalities to dom
+
+  //Add
+
+  let newTask = myTask.cloneNode(true);
+  newTask.firstElementChild.firstElementChild.checked = false;
+  let newModifierTwo = newTask.children[2].children[1].children[0];
+  let newDeleterTwo = newTask.children[2].children[1].children[1];
+
+  plant.insertAdjacentElement("beforebegin", newTask);
+
+  //Display modify modal
+
+  newModifierTwo.addEventListener("click", () => {
+    modifierTwo = newModifierTwo;
+    taskAdder.click();
+  });
+
+  //Display delete modal
+
+  newDeleterTwo.addEventListener("click", () => {
+    //Display delete modal
+    deleterTwo = newDeleterTwo;
+    delMod();
+  });
+
+  //Create corresponding task object and update dom
+
+  let project = bigTitle.querySelector(".secret-id").textContent;
+  let title;
+  let description;
+  let dueDate;
+  let flag;
+
+  if (taskNameInput.value != "") {
+    title = taskNameInput.value;
+    plant.previousElementSibling.children[1].firstElementChild.textContent =
+      taskNameInput.value;
+  } else {
+    title = "Unnamed Task";
+    plant.previousElementSibling.children[1].firstElementChild.textContent =
+      "Unnamed Task";
+  }
+
+  if (taskDescrib.value != "") {
+    description = taskDescrib.value;
+    plant.previousElementSibling.children[1].lastElementChild.textContent =
+      taskDescrib.value;
+  } else {
+    description = "";
+    plant.previousElementSibling.children[1].lastElementChild.textContent = "";
+  }
+
+  if (taskTime.value != "") {
+    dueDate = taskTime.value;
+    plant.previousElementSibling.children[2].firstElementChild.firstElementChild.textContent =
+      taskTime.value;
+  } else {
+    dueDate = "";
+    plant.previousElementSibling.children[2].firstElementChild.firstElementChild.textContent =
+      "";
+  }
+
+  let importance =
+    plant.previousElementSibling.children[2].lastElementChild.lastElementChild
+      .firstElementChild.firstElementChild;
+
+  if (taskImp.children[1].firstElementChild.checked) {
+    flag = "High";
+    importance.parentElement.parentElement.classList.remove("remove");
+    importance.setAttributeNS(null, "fill", "red");
+  } else if (taskImp.children[2].firstElementChild.checked) {
+    flag = "Moderate";
+    importance.parentElement.parentElement.classList.remove("remove");
+    importance.setAttributeNS(null, "fill", "yellow");
+  } else if (taskImp.children[3].firstElementChild.checked) {
+    flag = "Low";
+    importance.parentElement.parentElement.classList.remove("remove");
+    importance.setAttributeNS(null, "fill", "green");
+  } else {
+    flag = "";
+    importance.parentElement.parentElement.classList.add("remove");
+  }
+
+  createTodo(
+    project,
+    title,
+    description,
+    dueDate,
+    flag,
+    plant.previousElementSibling
+  );
+  totalTasks += 1;
+  progBar();
+
+  newTask.addEventListener("click", (e) => {
+    //Click interaction
+    if (e.target == newTask || newTask.contains(e.target)) {
+      removeClickEffectTwo();
+      newTask.classList.add("clicked-task");
+    }
+  });
+
+  newTask.firstElementChild.firstElementChild.addEventListener("change", () => {
+    //Task status checkbox
+    if (newTask.firstElementChild.firstElementChild.checked) {
+      taskID(newTask).status = "Done";
+    } else {
+      taskID(newTask).status = "Not done";
+    }
+  });
+
+  newTask.querySelector("#task-status").addEventListener("change", () => {
+    //Task status checkbox
+    if (newTask.querySelector("#task-status").checked) {
+      taskID(newTask).status = "Done";
+      completedTasks += 1;
+      progBar();
+    } else {
+      taskID(newTask).status = "Not done";
+      completedTasks -= 1;
+      progBar();
+    }
+  });
+
+  newTask.click();
+});
+
+//date module, storage
+
+//Debugging
+
+console.log(projectDirectory);

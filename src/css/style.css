@@ -202,7 +202,8 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
-  transition: height ease 0.5s, visibility ease 0.3s, padding-inline-start ease 0.5s;
+  transition: height ease 0.5s, visibility ease 0.3s,
+    padding-inline-start ease 0.5s;
   height: 30px;
 }
 
@@ -218,7 +219,8 @@ body {
 
 .delete-one,
 .pen-one,
-.my-project, .add-two  {
+.my-project,
+.add-two {
   cursor: pointer;
 }
 
@@ -261,8 +263,7 @@ body {
 
 .modal-proj,
 .modal-task,
-.modal-del,
-.modal-summary {
+.modal-del {
   border-radius: 5px;
   padding: 1rem;
   background-color: #e37922;
@@ -285,7 +286,6 @@ body {
 
 .proj-form,
 .modal-del,
-.modal-summary,
 .task-form {
   display: grid;
   gap: 1rem;
@@ -302,14 +302,12 @@ body {
   border: none;
 }
 
-.task-label,
-.notes {
+.task-label {
   padding-block-end: 1rem;
   border-block-end: 1px solid;
 }
 
-.task-input,
-#notes {
+.task-input {
   border-radius: 5px;
   border: none;
 }
@@ -414,23 +412,6 @@ body {
   background-color: red;
 }
 
-.imp-cont,
-.status-cont,
-.time-cont {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-}
-
-.imp-under {
-  border-block-end: 1px solid red;
-}
-
-.larger {
-  font-size: 2rem;
-}
-
 .underline {
   border-block-end: 1px solid;
 }
@@ -444,6 +425,7 @@ body {
   display: grid;
   gap: 1rem;
   align-content: start;
+  transition: ease 0.5s;
 }
 
 .proj-title {
@@ -477,6 +459,10 @@ body {
   gap: 1rem;
 }
 
+.clicked-task {
+  background-color: #8ed6f1;
+}
+
 .no-margin {
   margin: 0;
 }
@@ -494,15 +480,10 @@ body {
 }
 
 .flex-cont,
-.flex-cont-two,
-.notes-cont {
+.flex-cont-two {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-}
-
-.notes-cont {
-  gap: 1rem;
 }
 
 .flex-cont-two {
@@ -513,6 +494,7 @@ body {
   margin-inline-start: auto;
   display: flex;
   gap: 1rem;
+  min-width: fit-content;
 }
 
 .delete-two,
@@ -547,4 +529,24 @@ body {
   font-style: italic;
   color: #e37922;
   font-size: 2rem;
+}
+
+.remove {
+  display: none;
+}
+
+.secret-id {
+  display: block;
+  overflow: hidden;
+  opacity: 0;
+  margin: 0;
+  width: 0px;
+  height: 0px;
+}
+
+.hide-tasks, .hide-prog {
+  overflow: hidden;
+  opacity: 0;
+  padding: 0;
+  height: 0;
 }
